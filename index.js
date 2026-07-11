@@ -133,7 +133,7 @@ document.addEventListener('click', (event) => {
                      <div data-expenses-kr>0.00</div>
                      <div data-expenses-usdt>0</div>
                      <div data-expenses-procent-act>0%</div>
-                     <div data-expenses-kr-old>0</div>
+                     <div data-expenses-kr-old>0.0k</div>
                      <div data-expenses-procent-old>0%</div>
                      <div data-expenses-del>x</div>
                   </div>
