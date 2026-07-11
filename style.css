@@ -28,14 +28,16 @@ textarea:focus {
   outline: none;
 }
 
-
+body{
+  padding-top: 300px;
+}
 
 [data-expenses] {
   
 }
 
 [data-expenses-endmonth]{
-   margin-top: 300px;
+   
 }
 
 [data-expenses-block] {
