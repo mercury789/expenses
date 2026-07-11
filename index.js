@@ -1,4 +1,3 @@
-
 function set(name, value) {
    localStorage.setItem(name, value)
 }
@@ -6,7 +5,6 @@ function rem(name) {
    localStorage.removeItem(name)
 }
 function get(name) {
-
    return localStorage.getItem(name)
 }
 function clear() {
@@ -21,10 +19,7 @@ function formatNum(num) {
 function shadowOff(){
       const shadow = document.querySelector('[data-shadow]')
       shadow.classList.remove('_active') 
-      
 }
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
    if (get('body')) {
@@ -32,13 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
    }
 });
 
-
-
 function save() {
    set('body', document.querySelector('body').innerHTML)
 }
-
-
 
 function shadowAdd() {
    const shadow = document.querySelector('[data-shadow]')
@@ -73,6 +64,39 @@ function prom(textMessage) {
    return !Number.isNaN(Number(clean)) ? Number(clean) : clean;
 }
 
+// НОВАЯ ФУНКЦИЯ: Сортирует блоки по процентам (от большего к меньшему)
+function sortBlocks() {
+   const container = document.querySelector('[data-expenses]');
+   if (!container) return;
+
+   // Находим только сами блоки расходов (исключая кнопки управления и плашки итогов)
+   const blocks = Array.from(container.querySelectorAll(':scope > [data-expenses-block]'));
+   
+   if (blocks.length <= 1) return;
+
+   // Сортируем массив блоков по значению процентов внутри них
+   blocks.sort((a, b) => {
+      const pctAEl = a.querySelector('[data-expenses-procent-act]');
+      const pctBEl = b.querySelector('[data-expenses-procent-act]');
+      
+      const pctA = pctAEl ? parseInt(pctAEl.innerText, 10) || 0 : 0;
+      const pctB = pctBEl ? parseInt(pctBEl.innerText, 10) || 0 : 0;
+      
+      return pctB - pctA; // Большие проценты идут наверх
+   });
+
+   // Находим элемент кнопки сброса (или плюса), чтобы вставлять отсортированные блоки строго ПЕРЕД ними
+   const controlBtn = container.querySelector('[data-expenses-btn]') || container.querySelector('[data-expenses-reset]');
+
+   blocks.forEach(block => {
+      if (controlBtn) {
+         container.insertBefore(block, controlBtn);
+      } else {
+         container.appendChild(block);
+      }
+   });
+}
+
 function logic() {
    const numberElements = document.querySelectorAll('[data-expenses-kr]');
    const totalSum = Array.from(numberElements).reduce((sum, el) => {
@@ -91,6 +115,9 @@ function logic() {
          }
       }
    });
+
+   // Вызываем сортировку каждый раз, когда отработала математика процентов
+   sortBlocks();
 }
 
 const well = 0.047
@@ -98,11 +125,8 @@ const well = 0.047
 document.addEventListener('click', (event) => {
    const targ = event.target
    
-   
-   
    if (targ.closest('[data-expenses-reset]')) {
       clear()
-      
       targ.classList.add('_active')
    }
    
@@ -124,12 +148,13 @@ document.addEventListener('click', (event) => {
                return
             }
             
-            document.querySelector('[data-expenses]').insertAdjacentHTML('beforeend', `
+            // Находим кнопку добавления, чтобы вставить новый блок аккуратно перед кнопками управления
+            const btn = document.querySelector('[data-expenses-btn]');
+            const htmlString = `
                <div data-expenses-block>
                   <div data-expenses-name>${inputValue}</div>
                   <div data-expenses-group>
                      <div data-expenses-income>-</div>
-                     
                      <div data-expenses-kr>0.00</div>
                      <div data-expenses-usdt>0</div>
                      <div data-expenses-procent-act>0%</div>
@@ -137,9 +162,13 @@ document.addEventListener('click', (event) => {
                      <div data-expenses-procent-old>0%</div>
                      <div data-expenses-del>x</div>
                   </div>
-               </div>
+               </div>`;
                
-            `)
+            if (btn) {
+               btn.insertAdjacentHTML('beforebegin', htmlString);
+            } else {
+               document.querySelector('[data-expenses]').insertAdjacentHTML('beforeend', htmlString);
+            }
             
             logic()
             input.remove()
@@ -264,11 +293,9 @@ document.addEventListener('click', (event) => {
       })
    }
    
-   // Клик по тени: гасим задник и удаляем инпут, если он висит в документе
    if (targ.closest('[data-shadow]')) {
       shadowOff()
       
-      // Проверяем, существует ли инпут в DOM, и если да — убираем его
       if (typeof input !== 'undefined' && input && input.parentNode) {
          input.remove()
          shadowOff()
@@ -277,26 +304,20 @@ document.addEventListener('click', (event) => {
    }
 })
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
    const popup = document.querySelector('[data-expenses-endmonth]');
    if (!popup) return;
    
    const date = new Date();
-   // Создаем строку вида "YYYY-MM" (например: "2026-07")
    const currentMonthStr = `${date.getFullYear()}-${date.getMonth()}`;
    
-   // Если в памяти месяц НЕ совпадает с текущим — показываем плашку
    if (get('lastClosedMonth') !== currentMonthStr) {
       popup.classList.add('_active');
    }
    
-   // При клике скрываем и записываем текущий месяц в память
    popup.addEventListener('click', () => {
       popup.classList.remove('_active');
-      set('lastClosedMonth', currentMonthStr); // Теперь она не вылезет до следующего месяца
-      
+      set('lastClosedMonth', currentMonthStr);
       
       const krAll = document.querySelectorAll('[data-expenses-kr]')
       const usdtAll = document.querySelectorAll('[data-expenses-usdt]')
@@ -308,18 +329,14 @@ document.addEventListener('DOMContentLoaded', () => {
          e.closest('[data-expenses-block]').querySelector('[data-expenses-kr-old]').innerText = `${num}k`
       })
       usdtAll.forEach((e) => {
-   e.innerText = '0'
-})
-procentActAll.forEach((e) => {
-   
-   const num = parseInt(e.innerText, 10)
-e.innerText = '0%'
-e.closest('[data-expenses-block]').querySelector('[data-expenses-procent-old]').innerText = `${num}%`
-})
+         e.innerText = '0'
+      })
+      procentActAll.forEach((e) => {
+         const num = parseInt(e.innerText, 10)
+         e.innerText = '0%'
+         e.closest('[data-expenses-block]').querySelector('[data-expenses-procent-old]').innerText = `${num}%`
+      })
       
       logic()
-      
    });
 });
-
-
