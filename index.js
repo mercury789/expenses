@@ -131,9 +131,9 @@ document.addEventListener('click', (event) => {
                      <div data-expenses-income>-</div>
                      
                      <div data-expenses-kr>0.00</div>
-                     <div data-expenses-usdt>0.0</div>
+                     <div data-expenses-usdt>0</div>
                      <div data-expenses-procent-act>0%</div>
-                     <div data-expenses-kr-old>0.0</div>
+                     <div data-expenses-kr-old>0</div>
                      <div data-expenses-procent-old>0%</div>
                      <div data-expenses-del>x</div>
                   </div>
@@ -167,7 +167,7 @@ document.addEventListener('click', (event) => {
             const calc = (Number(obj.innerText) || 0) + num
             
             obj.innerText = calc
-            parent.querySelector('[data-expenses-usdt]').innerText = (calc * well).toFixed(1)
+            parent.querySelector('[data-expenses-usdt]').innerText = (calc * well).toFixed(0)
             
             logic()
             input.remove()
@@ -212,7 +212,7 @@ document.addEventListener('click', (event) => {
             
             const data = Number(val)
             targ.closest('[data-expenses-kr]').innerText = data
-            targ.closest('[data-expenses-block]').querySelector('[data-expenses-usdt]').innerText = (data * well).toFixed(1)
+            targ.closest('[data-expenses-block]').querySelector('[data-expenses-usdt]').innerText = (data * well).toFixed(0)
             
             logic()
             input.remove()
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
          e.closest('[data-expenses-block]').querySelector('[data-expenses-kr-old]').innerText = num
       })
       usdtAll.forEach((e) => {
-   e.innerText = '0.0'
+   e.innerText = '0'
 })
 procentActAll.forEach((e) => {
    
