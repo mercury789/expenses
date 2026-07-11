@@ -304,11 +304,11 @@ document.addEventListener('DOMContentLoaded', () => {
       
       krAll.forEach((e) =>{
          const num = formatNum(e.innerText)
-         e.innerText = 0
-         e.closest('[data-expenses-block]').querySelector('[data-expenses-kr-old]').innerText = num
+         e.innerText = '0.00'
+         e.closest('[data-expenses-block]').querySelector('[data-expenses-kr-old]').innerText = num}
       })
       usdtAll.forEach((e) => {
-   e.innerText = 0
+   e.innerText = '0.0'
 })
 procentActAll.forEach((e) => {
    
