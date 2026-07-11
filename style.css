@@ -31,7 +31,11 @@ textarea:focus {
 
 
 [data-expenses] {
-  padding-top: 300px;
+  
+}
+
+[data-expenses-endmonth]{
+   margin-top: 300px;
 }
 
 [data-expenses-block] {
