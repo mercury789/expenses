@@ -167,7 +167,7 @@ document.addEventListener('click', (event) => {
             const calc = (Number(obj.innerText) || 0) + num
             
             obj.innerText = calc
-            parent.querySelector('[data-expenses-usdt]').innerText = calc * well
+            parent.querySelector('[data-expenses-usdt]').innerText = (calc * well).toFixed(1)
             
             logic()
             input.remove()
@@ -212,7 +212,7 @@ document.addEventListener('click', (event) => {
             
             const data = Number(val)
             targ.closest('[data-expenses-kr]').innerText = data
-            targ.closest('[data-expenses-block]').querySelector('[data-expenses-usdt]').innerText = ~~(data * well)
+            targ.closest('[data-expenses-block]').querySelector('[data-expenses-usdt]').innerText = (data * well).toFixed(1)
             
             logic()
             input.remove()
