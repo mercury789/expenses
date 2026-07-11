@@ -18,6 +18,12 @@ function formatNum(num) {
    return (num / 1000).toFixed(1);
 }
 
+function shadowOff(){
+      const shadow = document.querySelector('[data-shadow]')
+      shadow.classList.remove('_active') 
+      
+}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -137,6 +143,7 @@ document.addEventListener('click', (event) => {
             
             logic()
             input.remove()
+            shadowOff()
             save()
          }
       })
@@ -164,6 +171,7 @@ document.addEventListener('click', (event) => {
             
             logic()
             input.remove()
+            shadowOff()
             save()
          }
       })
@@ -184,6 +192,7 @@ document.addEventListener('click', (event) => {
             targ.closest('[data-expenses-name]').innerText = inputValue
             logic()
             input.remove()
+            shadowOff()
             save()
          }
       })
@@ -207,6 +216,7 @@ document.addEventListener('click', (event) => {
             
             logic()
             input.remove()
+            shadowOff()
             save()
          }
       })
@@ -227,6 +237,7 @@ document.addEventListener('click', (event) => {
             targ.closest('[data-expenses-procent-old]').innerText = `${Number(val)}%`
             logic()
             input.remove()
+            shadowOff()
             save()
          }
       })
@@ -247,6 +258,7 @@ document.addEventListener('click', (event) => {
             targ.closest('[data-expenses-kr-old]').innerText = Number(val)
             logic()
             input.remove()
+            shadowOff()
             save()
          }
       })
@@ -254,12 +266,12 @@ document.addEventListener('click', (event) => {
    
    // Клик по тени: гасим задник и удаляем инпут, если он висит в документе
    if (targ.closest('[data-shadow]')) {
-      const shadow = document.querySelector('[data-shadow]')
-      shadow.classList.remove('_active')
+      shadowOff()
       
       // Проверяем, существует ли инпут в DOM, и если да — убираем его
       if (typeof input !== 'undefined' && input && input.parentNode) {
          input.remove()
+         shadowOff()
          save()
       }
    }
