@@ -255,7 +255,7 @@ document.addEventListener('click', (event) => {
                return
             }
             
-            targ.closest('[data-expenses-kr-old]').innerText = Number(val)
+            targ.closest('[data-expenses-kr-old]').innerText = `${Number(val)}k`
             logic()
             input.remove()
             shadowOff()
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
       krAll.forEach((e) =>{
          const num = formatNum(e.innerText)
          e.innerText = '0.00'
-         e.closest('[data-expenses-block]').querySelector('[data-expenses-kr-old]').innerText = num
+         e.closest('[data-expenses-block]').querySelector('[data-expenses-kr-old]').innerText = `${num}k`
       })
       usdtAll.forEach((e) => {
    e.innerText = '0'
