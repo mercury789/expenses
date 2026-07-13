@@ -231,4 +231,21 @@ body{
   
 }
 
+[data-expenses-trn] {
+  max-width: 200px;
+  margin-top: 5px;
+}
+[data-expenses-trn-block] {
+  display: flex;
+  alight-items: center;
+  
+  
+  
+  
+}
+
+[data-expenses-trn-kr] {
+  margin-left: auto;
+}
+
 

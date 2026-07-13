@@ -143,13 +143,14 @@ document.addEventListener('click', (event) => {
             event.preventDefault()
             const inputValue = input.value.trim()
             
+            shadowOff()
             if (!inputValue) {
                input.remove()
                return
             }
             
-            // Находим кнопку добавления, чтобы вставить новый блок аккуратно перед кнопками управления
-            const btn = document.querySelector('[data-expenses-btn]');
+
+            const blocks = document.querySelector('[data-expenses-blocks]');
             const htmlString = `
                <div data-expenses-block>
                   <div data-expenses-name>${inputValue}</div>
@@ -164,15 +165,13 @@ document.addEventListener('click', (event) => {
                   </div>
                </div>`;
                
-            if (btn) {
-               btn.insertAdjacentHTML('beforebegin', htmlString);
-            } else {
-               document.querySelector('[data-expenses]').insertAdjacentHTML('beforeend', htmlString);
-            }
+            
+               blocks.insertAdjacentHTML('beforeend', htmlString);
+            
             
             logic()
             input.remove()
-            shadowOff()
+            
             save()
          }
       })
@@ -185,22 +184,36 @@ document.addEventListener('click', (event) => {
             event.preventDefault()
             const val = input.value.trim()
             
+            shadowOff()
             if (val === "" || isNaN(Number(val))) {
                input.remove()
                return
             }
             
+            const name = targ.closest('[data-expenses-block]').querySelector('[data-expenses-name]').innerText
             const num = Number(val)
             const parent = targ.closest('[data-expenses-block]')
             const obj = parent.querySelector('[data-expenses-kr]')
-            const calc = (Number(obj.innerText) || 0) + num
+            const objN = Number(parent.querySelector('[data-expenses-kr]').innerText)
+            const calc = (objN || 0) + num
+            
             
             obj.innerText = calc
             parent.querySelector('[data-expenses-usdt]').innerText = (calc * well).toFixed(0)
             
+            const trn = document.querySelector('[data-expenses-trn]')
+            
+            trn.insertAdjacentHTML('afterbegin', `
+<div data-expenses-trn-block>
+   <div data-expenses-trn-name>${name}</div>
+   <div data-expenses-trn-kr>${num}</div>
+</div>
+      
+            `)
+            
             logic()
             input.remove()
-            shadowOff()
+            
             save()
          }
       })
@@ -213,6 +226,7 @@ document.addEventListener('click', (event) => {
             event.preventDefault()
             const inputValue = input.value.trim()
             
+            shadowOff()
             if (!inputValue) {
                input.remove()
                return
@@ -221,7 +235,7 @@ document.addEventListener('click', (event) => {
             targ.closest('[data-expenses-name]').innerText = inputValue
             logic()
             input.remove()
-            shadowOff()
+            
             save()
          }
       })
@@ -234,6 +248,8 @@ document.addEventListener('click', (event) => {
             event.preventDefault()
             const val = input.value.trim()
             
+            
+            shadowOff()
             if (val === "" || isNaN(Number(val))) {
                input.remove()
                return
@@ -245,7 +261,7 @@ document.addEventListener('click', (event) => {
             
             logic()
             input.remove()
-            shadowOff()
+            
             save()
          }
       })
@@ -258,6 +274,7 @@ document.addEventListener('click', (event) => {
             event.preventDefault()
             const val = input.value.trim()
             
+            shadowOff()
             if (val === "" || isNaN(Number(val))) {
                input.remove()
                return
@@ -266,7 +283,7 @@ document.addEventListener('click', (event) => {
             targ.closest('[data-expenses-procent-old]').innerText = `${Number(val)}%`
             logic()
             input.remove()
-            shadowOff()
+            
             save()
          }
       })
@@ -279,6 +296,7 @@ document.addEventListener('click', (event) => {
             event.preventDefault()
             const val = input.value.trim()
             
+            shadowOff()
             if (val === "" || isNaN(Number(val))) {
                input.remove()
                return
@@ -287,7 +305,7 @@ document.addEventListener('click', (event) => {
             targ.closest('[data-expenses-kr-old]').innerText = `${Number(val)}k`
             logic()
             input.remove()
-            shadowOff()
+            
             save()
          }
       })
