@@ -1,4 +1,4 @@
-function set(name, value) {
+aafunction set(name, value) {
    localStorage.setItem(name, value)
 }
 function rem(name) {
@@ -66,7 +66,7 @@ function prom(textMessage) {
 
 // НОВАЯ ФУНКЦИЯ: Сортирует блоки по процентам (от большего к меньшему)
 function sortBlocks() {
-   const container = document.querySelector('[data-expenses]');
+   const container = document.querySelector('[data-expenses-blocks]');
    if (!container) return;
 
    // Находим только сами блоки расходов (исключая кнопки управления и плашки итогов)
