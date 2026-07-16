@@ -1,4 +1,4 @@
-aafunction set(name, value) {
+function set(name, value) {
    localStorage.setItem(name, value)
 }
 function rem(name) {
