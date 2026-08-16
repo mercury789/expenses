@@ -203,10 +203,16 @@ document.addEventListener('click', (event) => {
             
             const trn = document.querySelector('[data-expenses-trn]')
             
+            const today = new Date();
+const day = today.getDate(); // Получить день месяца (от 1 до 31)
+const month = today.getMonth() + 1;
+
+            
             trn.insertAdjacentHTML('afterbegin', `
 <div data-expenses-trn-block>
    <div data-expenses-trn-name>${name}</div>
    <div data-expenses-trn-kr>${num}</div>
+   <div data-expenses-trn-day>${day}.${month}</div>
 </div>
       
             `)

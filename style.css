@@ -223,7 +223,7 @@ body{
     
   
   
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('bg.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -234,12 +234,15 @@ body{
 [data-expenses-trn] {
   max-width: 200px;
   margin-top: 5px;
+  overflow: auto;
+  height: 350px;
+  
 }
 [data-expenses-trn-block] {
   display: flex;
   alight-items: center;
   
-  
+
   
   
 }
@@ -248,4 +251,9 @@ body{
   margin-left: auto;
 }
 
+
+[data-expenses-trn-day] {
+  color: gray;
+  margin-left: 10px;
+}
 
