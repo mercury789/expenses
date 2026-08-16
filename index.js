@@ -198,7 +198,7 @@ document.addEventListener('click', (event) => {
             const calc = (objN || 0) + num
             
             
-            obj.innerText = calc
+            obj.innerText = calc.toFixed(2)
             parent.querySelector('[data-expenses-usdt]').innerText = (calc * well).toFixed(0)
             
             const trn = document.querySelector('[data-expenses-trn]')
@@ -211,7 +211,7 @@ const month = today.getMonth() + 1;
             trn.insertAdjacentHTML('afterbegin', `
 <div data-expenses-trn-block>
    <div data-expenses-trn-name>${name}</div>
-   <div data-expenses-trn-kr>${num}</div>
+   <div data-expenses-trn-kr>${num.toFixed(2)}</div>
    <div data-expenses-trn-day>${day}.${month}</div>
 </div>
       
