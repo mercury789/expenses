@@ -19,6 +19,9 @@ function formatNum(num) {
 function shadowOff(){
       const shadow = document.querySelector('[data-shadow]')
       shadow.classList.remove('_active') 
+      const elem = document.querySelector('[data-expenses-name]._active')
+
+elem && elem.classList.remove('_active')
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -179,16 +182,27 @@ document.addEventListener('click', (event) => {
    
    if (targ.closest('[data-expenses-income]')) {
       inpNum()
+      targ.closest('[data-expenses-block]').querySelector('[data-expenses-name]').classList.add('_active')
       input.addEventListener('keydown', (event) => {
+         
          if (event.key === 'Enter') {
+            
+            
+            
             event.preventDefault()
             const val = input.value.trim()
+            
             
             shadowOff()
             if (val === "" || isNaN(Number(val))) {
                input.remove()
                return
             }
+            
+            
+            const elem = document.querySelector('[data-expenses-name]._active')
+
+elem && elem.classList.remove('_active')
             
             const name = targ.closest('[data-expenses-block]').querySelector('[data-expenses-name]').innerText
             const num = Number(val)
@@ -216,6 +230,9 @@ const month = today.getMonth() + 1;
 </div>
       
             `)
+            
+            
+         
             
             logic()
             input.remove()
