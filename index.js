@@ -118,6 +118,31 @@ function logic() {
          }
       }
    });
+   
+   const farm = document.querySelector('[data-farm]')
+   
+   const income = document.querySelector('[data-expenses-kr="доход"]')
+   
+   
+   const incomeNum = +income.innerText
+   
+   console.log(incomeNum)
+   
+   let anotherSum = 0
+   
+   document.querySelectorAll('[data-expenses-kr]').forEach((e) => {
+      
+      if (e.getAttribute('data-expenses-kr') !== 'доход') {
+         anotherSum = anotherSum + +e.innerText
+      }
+      
+   })
+   
+   console.log(anotherSum)
+   
+   const result = incomeNum - anotherSum
+   
+   farm.innerText = result.toFixed(2)
 
    // Вызываем сортировку каждый раз, когда отработала математика процентов
    sortBlocks();
@@ -379,5 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       
       logic()
+      
+      save()
    });
 });
